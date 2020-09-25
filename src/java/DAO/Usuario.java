@@ -67,17 +67,18 @@ public class Usuario {
     public Usuario getUsuario(String login, String senha) {
         DbConnection DbCon = new DbConnection();
         Usuario usuario = null;
-
+        
         try (Connection connection = DbCon.getConnection()) {
 
-            String sql = "SELECT * FROM usuarios WHERE login = login";
+            String sql = "SELECT * FROM usuarios WHERE login = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, login);
 
             ResultSet result = statement.executeQuery();
 
             if (result.next()) {
-                if (login == result.getString("usuario") && senha == result.getString("senha")) {
+                if (login.equals(result.getString("login")) && senha.equals(result.getString("senha"))) {
                     usuario = new Usuario();
                     usuario.setIdusuarios(result.getInt("idusuarios"));
                     usuario.setNome(result.getString("nome"));
@@ -87,7 +88,7 @@ public class Usuario {
                 }
 
             }
-
+            connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }

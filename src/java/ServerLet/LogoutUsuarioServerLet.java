@@ -1,10 +1,10 @@
-package ServerLet;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package ServerLet;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -13,18 +13,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import DAO.Usuario;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author ocris
  */
-@WebServlet(name = "Login", urlPatterns = {"/loginUser"})
-public class LoginUsuarioServerLet extends HttpServlet {
+@WebServlet(name = "Logout", urlPatterns = {"/logout"})
+public class LogoutUsuarioServerLet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +39,10 @@ public class LoginUsuarioServerLet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginUsuarioServerLet</title>");
+            out.println("<title>Servlet LogoutUsuarioServerLet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginUsuarioServerLet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LogoutUsuarioServerLet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,9 +60,15 @@ public class LoginUsuarioServerLet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.removeAttribute("usuario");
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/login/");
-        dispatcher.forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/login");
+            /*RequestDispatcher dispatcher = request.getRequestDispatcher(request.getContextPath() + "/login");
+            dispatcher.forward(request, response);
+            */
+        }
         //processRequest(request, response);
     }
 
@@ -81,26 +83,7 @@ public class LoginUsuarioServerLet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String usuario = request.getParameter("usuario");
-        String senha = request.getParameter("senha");
-        Usuario daoUsuario = new Usuario();
-
-        daoUsuario = daoUsuario.getUsuario(usuario, senha);
-
-        String destPage = request.getContextPath() + "/login/";
-        if (daoUsuario != null) {
-            destPage = request.getContextPath() + "/principal/";
-            HttpSession session = request.getSession();
-            session.setAttribute("usuario", daoUsuario);
-        } else {
-            String message = "Invalid email/password";
-            request.setAttribute("message", message);
-        }
-
-         response.sendRedirect(destPage);
-        //RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
-        //dispatcher.forward(request, response);
-        //processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**
