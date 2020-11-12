@@ -2,21 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Desenv/faculdade/gerenciador_de_notas/web/principal/index.jsp</file>
-            <file>file:/D:/Desenv/faculdade/gerenciador_de_notas/nbproject/project.properties</file>
-            <file>file:/D:/Desenv/faculdade/gerenciador_de_notas/src/java/DAO/Usuario.java</file>
-            <file>file:/D:/Desenv/faculdade/gerenciador_de_notas/src/java/ServerLet/LoginUsuarioServerLet.java</file>
-            <file>file:/D:/Desenv/faculdade/gerenciador_de_notas/src/conf/MANIFEST.MF</file>
-            <file>file:/D:/Desenv/faculdade/gerenciador_de_notas/nbproject/build-impl.xml</file>
-            <file>file:/D:/Desenv/faculdade/gerenciador_de_notas/src/java/ServerLet/LogoutUsuarioServerLet.java</file>
-            <file>file:/D:/Desenv/faculdade/gerenciador_de_notas/web/login/login.css</file>
-            <file>file:/D:/Desenv/faculdade/gerenciador_de_notas/web/login/index.jsp</file>
-            <file>file:/D:/Desenv/faculdade/gerenciador_de_notas/web/index.jsp</file>
-            <file>file:/D:/Desenv/faculdade/gerenciador_de_notas/build.xml</file>
-            <file>file:/D:/Desenv/faculdade/gerenciador_de_notas/src/java/DAO/DbConnection.java</file>
-            <file>file:/D:/Desenv/faculdade/gerenciador_de_notas/nbproject/project.xml</file>
-            <file>file:/D:/Desenv/faculdade/gerenciador_de_notas/web/principal/principal.css</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
