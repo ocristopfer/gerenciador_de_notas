@@ -13,7 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import DAO.Usuario;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -81,22 +80,29 @@ public class LoginUsuarioServerLet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String usuario = request.getParameter("usuario");
-        String senha = request.getParameter("senha");
-        Usuario daoUsuario = new Usuario();
+        
+        //TODO 
+        // Fazer aqui a requsição para api do webservice
+       // E dependendo da reposta redicionar ou não para a pagina princial
+  
+//Rotina abaixo é a original que já faz esse processamento, porem ela se comunicava diretamente com o dao    
+//        String usuario = request.getParameter("usuario");
+//        String senha = request.getParameter("senha");
+//        Usuario daoUsuario = new Usuario();;
+//
+//        daoUsuario = daoUsuario.getUsuario(usuario, senha);
+//
+//        String destPage = request.getContextPath() + "/login/";
+//        if (daoUsuario != null) {
+//            destPage = request.getContextPath() + "/principal/";
+//            HttpSession session = request.getSession();
+//            session.setAttribute("usuario", daoUsuario);
+//        } else {
+//            String message = "Invalid email/password";
+//            request.setAttribute("message", message);
+//        }
 
-        daoUsuario = daoUsuario.getUsuario(usuario, senha);
-
-        String destPage = request.getContextPath() + "/login/";
-        if (daoUsuario != null) {
-            destPage = request.getContextPath() + "/principal/";
-            HttpSession session = request.getSession();
-            session.setAttribute("usuario", daoUsuario);
-        } else {
-            String message = "Invalid email/password";
-            request.setAttribute("message", message);
-        }
-
+         String destPage = request.getContextPath() + "/principal/";
          response.sendRedirect(destPage);
         //RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
         //dispatcher.forward(request, response);

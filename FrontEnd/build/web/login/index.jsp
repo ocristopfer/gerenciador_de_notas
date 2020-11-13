@@ -19,7 +19,7 @@
     <title>Login</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../plugins/bootstrap-4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="login.css" rel="stylesheet">
@@ -41,5 +41,8 @@
       <button class="btn btn-lg btn-primary btn-block" type="submit">Logar</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
     </form>
+    <script src="../plugins/jquery/js/jquery-3.5.1.min.js"></script>
+    <script src="../plugins/jquery/js/popper.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>

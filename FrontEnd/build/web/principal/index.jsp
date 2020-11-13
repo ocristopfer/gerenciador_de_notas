@@ -9,7 +9,7 @@
 <%
     session = request.getSession(false);
     if (session.getAttribute("usuario") == null) {
-        response.sendRedirect(application.getContextPath() + "login");
+        response.sendRedirect(application.getContextPath() + "/login");
     }
 
 %>
@@ -26,7 +26,7 @@
     <title>Starter Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../plugins/bootstrap-4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="principal.css" rel="stylesheet">
@@ -79,10 +79,9 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../plugins/jquery-3.2.1/jquery-slim.min.js"><\/script>')</script>
-    <script src="../plugins/popper.min.js"></script>
-    <script src="../plugins/bootstrap-4.0.0/js/bootstrap.min.js"></script>
+    <script src="../plugins/jquery/js/jquery-3.5.1.min.js"></script>
+    <script src="../plugins/jquery/js/popper.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>
 
