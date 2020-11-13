@@ -16,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.POST;
 import javax.ws.rs.core.MediaType;
 import model.Usuario;
 
@@ -65,5 +66,23 @@ public class UsuarioWS {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void putJson(String content) {
+    }
+    
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("autenticar")
+    public String autenticarUsuario(String content) throws ClassNotFoundException, SQLException{
+       Gson g = new Gson(); 
+       Usuario requisicao = g.fromJson(content, Usuario.class );
+       UsuarioDao userDao = new UsuarioDao();
+       Usuario user = userDao.getUsuarioByLogin(requisicao.getLogin());
+       if (user != null){
+           if (user.getSenha().equals(requisicao.getSenha())){
+               return "true";
+           }else{
+               return "false";
+           }
+       }
+        return "false";
     }
 }

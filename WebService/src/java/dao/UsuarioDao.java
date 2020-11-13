@@ -40,6 +40,24 @@ public class UsuarioDao {
                 usuario.setTipo(rs.getInt("tipo"));
                 usuarios.add(usuario);
             }
+            DbCon.closeCon();
             return usuarios;                       
+        }
+        
+        public Usuario getUsuarioByLogin(String login) throws ClassNotFoundException, SQLException{
+            sql = "SELECT * FROM usuario WHERE login like '%login%'";
+            Usuario usuario = null;
+            con = DbCon.openCon();
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while(rs.next()){
+                usuario = new Usuario();
+                usuario.setId(rs.getInt("id"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setLogin(rs.getString("login"));
+                usuario.setSenha(rs.getString("senha"));
+                usuario.setTipo(rs.getInt("tipo"));
+            }
+            return usuario;
         }
 }
