@@ -3,10 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/FrontEnd/web/login/login.js</file>
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/FrontEnd/web/principal/index.css</file>
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/FrontEnd/web/principal/index.js</file>
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/FrontEnd/web/principal/index.jsp</file>
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/FrontEnd/web/login/index.css</file>
             <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/FrontEnd/web/index.jsp</file>
             <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/FrontEnd/web/login/index.jsp</file>
-            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/FrontEnd/web/principal/index.jsp</file>
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/FrontEnd/web/login/index.js</file>
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/FrontEnd/web/plugins/jquery/js/jquery-3.5.1.min.js</file>
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/FrontEnd/web/plugins/apiGatewayService.js</file>
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/FrontEnd/src/java/Api/Autenticar.java</file>
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/FrontEnd/src/java/ServerLet/LoginUsuarioServerLet.java</file>
         </group>
     </open-files>
 </project-private>

@@ -22,11 +22,11 @@
     <link href="../plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="login.css" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
   </head>
 
   <body class="text-center">
-    <form class="form-signin" action="<%=application.getContextPath()%>/loginUser" method="post">
+    <form class="form-signin">
       <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
       <label for="usuario" class="sr-only">Usuario</label>
@@ -38,11 +38,13 @@
           <input type="checkbox" value="remember-me"> Remember me
         </label-->
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Logar</button>
+      <button class="btn btn-lg btn-primary btn-block"  id="login">Logar</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
-    </form>
+    </form> 
     <script src="../plugins/jquery/js/jquery-3.5.1.min.js"></script>
     <script src="../plugins/jquery/js/popper.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../plugins/apiGatewayService.js"></script>
+    <script src="./index.js"></script>  
   </body>
 </html>

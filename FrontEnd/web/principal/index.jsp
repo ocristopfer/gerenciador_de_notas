@@ -7,10 +7,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
-    session = request.getSession(false);
+   /* session = request.getSession(false);
     if (session.getAttribute("usuario") == null) {
         response.sendRedirect(application.getContextPath() + "/login");
-    }
+    }*/
 
 %>
 
@@ -29,7 +29,7 @@
     <link href="../plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="principal.css" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
   </head>
 
   <body>
@@ -82,6 +82,8 @@
     <script src="../plugins/jquery/js/jquery-3.5.1.min.js"></script>
     <script src="../plugins/jquery/js/popper.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../plugins/apiGatewayService.js"></script>
+    <script src="./index.js"></script>  
   </body>
 </html>
 

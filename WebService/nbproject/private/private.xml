@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Desenv/projetos_faculdade/WebService/src/java/model/Usuario.java</file>
-            <file>file:/D:/Desenv/projetos_faculdade/WebService/src/java/controller/DbCon.java</file>
-            <file>file:/D:/Desenv/projetos_faculdade/WebService/src/java/ws/UsuarioWS.java</file>
-            <file>file:/D:/Desenv/projetos_faculdade/WebService/src/java/ws/ApplicationConfig.java</file>
-            <file>file:/D:/Desenv/projetos_faculdade/WebService/src/java/dao/UsuarioDao.java</file>
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/src/java/model/Token.java</file>
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/src/java/dao/UsuarioDao.java</file>
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/src/java/ws/ApplicationConfig.java</file>
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/src/java/ws/UsuarioWS.java</file>
         </group>
     </open-files>
 </project-private>

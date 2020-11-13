@@ -5,6 +5,8 @@ package ServerLet;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import Api.Autenticar;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -17,6 +19,9 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
+
+
+
 
 /**
  *
@@ -80,7 +85,16 @@ public class LoginUsuarioServerLet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+          Gson g = new Gson();
+          String urlPost = "http://localhost:8080/WebService/webresources/usuario/autenticar";
+          Autenticar autenticar = new Autenticar();
+          autenticar.setLogin(request.getParameter("usuario"));
+          autenticar.setSenha(request.getParameter("senha"));
+          String jsonBody = g.toJson(autenticar);
+          //HttpPost method = new HttpPost(new URI("https://host/service"));
+          
+          //HttpPost post = net HttpPost(urlPost);
+                  
         //TODO 
         // Fazer aqui a requsição para api do webservice
        // E dependendo da reposta redicionar ou não para a pagina princial

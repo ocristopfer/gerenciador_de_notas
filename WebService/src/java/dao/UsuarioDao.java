@@ -45,7 +45,7 @@ public class UsuarioDao {
         }
         
         public Usuario getUsuarioByLogin(String login) throws ClassNotFoundException, SQLException{
-            sql = "SELECT * FROM usuario WHERE login like '%login%'";
+            sql = "SELECT * FROM usuario WHERE login = '" + login + "'";
             Usuario usuario = null;
             con = DbCon.openCon();
             pst = con.prepareStatement(sql);
