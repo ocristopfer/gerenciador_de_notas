@@ -83,7 +83,7 @@ public class UsuarioWS {
         Usuario user = userDao.getUsuarioByLogin(requisicao.getLogin());
         if (user != null) {
             if (user.getSenha().equals(requisicao.getSenha())) {
-                String token = Base64.getEncoder().encodeToString(("token;" + user.getNome()).getBytes());
+                String token = Base64.getEncoder().encodeToString(("token;" + user.getTipo() + ";" + user.getId()).getBytes());
                 return g.toJson(token);
             }
         }
@@ -97,14 +97,9 @@ public class UsuarioWS {
     public String validarUsuario(String content) throws ClassNotFoundException, SQLException {
         Gson g = new Gson();
         Token token = g.fromJson(content, Token.class);
-        
-        byte[] decodedBytes = Base64.getDecoder().decode(token.getToken());
-        String decodedString = new String(decodedBytes);
-        String[] split;
-        split = decodedString.split(";");
-                
-        if ("token".equals(split[0])){
-            return "true";
+        String tokenValidado = token.validarToken(token);
+        if(tokenValidado != null){
+            return g.toJson(tokenValidado);
         }
   
         throw new WebApplicationException(400);

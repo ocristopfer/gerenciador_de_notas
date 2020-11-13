@@ -10,6 +10,6 @@ $( document ).ready(function() {
     /*
      * Falta ajustar a validação do token
      */
-    //validarToken("../login/");
+    validarToken("../login/");
 });
 
