@@ -5,6 +5,10 @@
  */
 package ws;
 
+import com.google.gson.Gson;
+import dao.AlunoDao;
+import java.sql.SQLException;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -15,6 +19,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import model.Nota;
+import model.Token;
 
 /**
  * REST Web Service
@@ -58,8 +64,11 @@ public class AlunoWS {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("notas")
-    public String getNotasAluno(@HeaderParam("Authorization") String token, @QueryParam("matricula") String matricula) {
-
-        return token + matricula + context;
+    public String getNotasAluno(@HeaderParam("Authorization") String token) throws ClassNotFoundException, SQLException {
+        String matricula = Token.descriptografarToken(token).split(";")[2];
+        AlunoDao oAluno = new AlunoDao();
+        List<Nota> notas = oAluno.getNotasAluno(matricula);
+        Gson g = new Gson();
+        return g.toJson(notas);
     }
 }

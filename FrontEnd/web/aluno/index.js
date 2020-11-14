@@ -5,11 +5,38 @@
  */
 
 // A $( document ).ready() block.
-$( document ).ready(function() {
-    console.log( "ready!" );
+$(document).ready(function () {
+    console.log("ready!");
     /*
      * Falta ajustar a validação do token
      */
     validarToken("../login/");
+
+    apiRequest('http://localhost:8080/WebService/webresources/aluno/notas', null, 'GET', {"Authorization": getCokie("token")}).then(
+            sucesso => {
+                $('#dtAluno').DataTable({
+                    data: sucesso,
+                    columns: [
+                        {data: 'materia'},
+                        {data: 'notaAv1'},
+                        {data: 'notaAps1'},
+                        {data: 'notaAv2'},
+                        {data: 'notaAps2'},
+                        {data: 'notaAv3'},
+                        {data: 'media'},
+                        {data: 'resultado'}
+                    ]
+                });
+            }, erro => {
+
+    }
+    )
+
+});
+
+$('#logout').click(function () {
+    console.log('logout')
+         eraseCookie('token');
+            window.location.href = "../login";
 });
 

@@ -12,8 +12,12 @@ package model;
 public class Nota {
      private String materia;
      private Float notaAv1;
+     private Float notaAps1;
      private Float notaAv2;
+     private Float notaAps2;
      private Float notaAv3;
+     private Float media;
+     private String resultado;
 
     public String getMateria() {
         return materia;
@@ -31,12 +35,28 @@ public class Nota {
         this.notaAv1 = notaAv1;
     }
 
+    public Float getNotaAps1() {
+        return notaAps1;
+    }
+
+    public void setNotaAps1(Float notaAps1) {
+        this.notaAps1 = notaAps1;
+    }
+
     public Float getNotaAv2() {
         return notaAv2;
     }
 
     public void setNotaAv2(Float notaAv2) {
         this.notaAv2 = notaAv2;
+    }
+
+    public Float getNotaAps2() {
+        return notaAps2;
+    }
+
+    public void setNotaAps2(Float notaAps2) {
+        this.notaAps2 = notaAps2;
     }
 
     public Float getNotaAv3() {
@@ -46,6 +66,26 @@ public class Nota {
     public void setNotaAv3(Float notaAv3) {
         this.notaAv3 = notaAv3;
     }
+
+    public Float getMedia() {
+        return media;
+    }
+
+    public void setMedia(Float media) {
+        this.media = media;
+    }
+
+    public String getResultado() {
+        return resultado;
+    }
+
+    public void setResultado(String resultado) {
+        this.resultado = resultado;
+    }
+    
+    
+     
+
 
 
      

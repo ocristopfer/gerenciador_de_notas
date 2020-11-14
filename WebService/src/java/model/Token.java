@@ -13,6 +13,8 @@ import java.util.Base64;
  */
 public class Token {
     private String token;
+    private String matricula;
+    private String tipo;
 
     public String getToken() {
         return token;
@@ -23,10 +25,8 @@ public class Token {
     }
     
     public String validarToken(Token oToken){
-        byte[] decodedBytes = Base64.getDecoder().decode(oToken.getToken());
-        String decodedString = new String(decodedBytes);
         String[] split;
-        split = decodedString.split(";");
+        split = descriptografarToken(oToken.getToken()).split(";");
                 
         if (split[0].equals("token")){
             if (split[1].equals("0")){
@@ -35,6 +35,12 @@ public class Token {
                 return "aluno";
         }
         return null;
+    }
+    
+    public static String descriptografarToken(String token){
+        byte[] decodedBytes = Base64.getDecoder().decode(token);
+        String decodedString = new String(decodedBytes);
+        return decodedString;
     }
     
     

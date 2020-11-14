@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * @author ocris
  */
 public class DbCon {
-    private static final String URL = "jdbc:mysql://localhost:3306/gerenciador_notas";
+    private static final String URL = "jdbc:mysql://localhost:3306/av1_db";
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String USER = "root";
     private static final String SENHA = "suporte";
