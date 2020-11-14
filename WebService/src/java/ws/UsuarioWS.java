@@ -91,7 +91,7 @@ public class UsuarioWS {
 
     }
     
-        @POST
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("validar")
     public String validarUsuario(String content) throws ClassNotFoundException, SQLException {
