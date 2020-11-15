@@ -18,6 +18,7 @@ import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import model.Nota;
 import model.Token;
@@ -65,10 +66,20 @@ public class AlunoWS {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("notas")
     public String getNotasAluno(@HeaderParam("Authorization") String token) throws ClassNotFoundException, SQLException {
-        String matricula = Token.descriptografarToken(token).split(";")[2];
-        AlunoDao oAluno = new AlunoDao();
-        List<Nota> notas = oAluno.getNotasAluno(matricula);
-        Gson g = new Gson();
-        return g.toJson(notas);
+        if (token.isEmpty()){
+             throw new WebApplicationException(400);
+        }
+        Token otoken = new Token();
+        otoken.setToken(token);
+        if (otoken.validarToken(otoken).equals("aluno")){
+            String matricula = Token.descriptografarToken(token).split(";")[2];
+            AlunoDao oAluno = new AlunoDao();
+            List<Nota> notas = oAluno.getNotasAluno(matricula);
+            Gson g = new Gson();
+            return g.toJson(notas);
+        }else{
+             throw new WebApplicationException(400);
+        }
+
     }
 }

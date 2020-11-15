@@ -15,6 +15,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.POST;
@@ -56,7 +57,8 @@ public class UsuarioWS {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("list")
-    public String getUsuarios() throws ClassNotFoundException, SQLException {
+    public String getUsuarios(@HeaderParam("Authorization") String token) throws ClassNotFoundException, SQLException {
+        
         Gson g = new Gson();
         UsuarioDao userDao = new UsuarioDao();
         List<Usuario> usuarios = userDao.getUsuarios();
