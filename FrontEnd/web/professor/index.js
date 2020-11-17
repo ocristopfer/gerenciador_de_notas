@@ -30,6 +30,7 @@ var officeVM = new Vue({
                 sucesso => {
                     this.listaDisciplinas = sucesso;
                 }, erro => {
+                    
         }
         )
 
@@ -92,15 +93,23 @@ var officeVM = new Vue({
                 }
                 apiRequest('http://localhost:8080/WebService/webresources/avaliacao', data, 'GET', {"Authorization": getCokie("token")}).then(
                         sucesso => {
-                            sucesso.forEach(element => {
+                            if(sucesso.length > 0){
+                                sucesso.forEach(element => {
                                 element.edit = false,
-                                        element.novaNota = false
+                                element.novaNota = false
                             });
                             this.notas = sucesso;
                             this.nomeAluno = sucesso[0].nomeAluno;
+                        }else{
+                             this.nomeAluno = "Não encontrado"
+                              this.notas = {};
+                        }
+                            
+                            
 
                         }, erro => {
-
+                            this.nomeAluno = "Não encontrado"
+                            this.notas = {};
                 }
                 )
             }
