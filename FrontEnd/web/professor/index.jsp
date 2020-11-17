@@ -27,9 +27,10 @@
 
         <!-- Bootstrap core CSS -->
         <link href="../plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
 
         <!-- Custom styles for this template -->
-        <link href="index.css" rel="stylesheet">
+        <link href="./index.css" rel="stylesheet">
     </head>
 
     <body>
@@ -72,54 +73,56 @@
 
                 <div id="listaNotas">
                     <div class="m-3">
-                        <input type="text" v-model="matriculaBusca" placeholder="Buscar Aluno por Matricula" aria-label="Search">
+                        <input style="width: 200px" type="text" v-model="matriculaBusca" placeholder="Buscar Aluno por Matricula" aria-label="Search">
                         <button class="btn btn-outline-success btn-sm my-2"  v-on:click="buscarAluno(this)" >Buscar</button>
                     </div> 
-                    <table>
+                    <div style="float:left" class="mb-3">
+                        <button class="btn btn-primary btn-sm"  v-on:click="adicionarNota()" >Lançar Notas</button>
+                    </div>
+                    
+                    <table id="tbNotas" class="table">
                         <thead>
                             <tr>
-                                <td>Materia</td>
-                                <td>Av1</td>
-                                <td>Aps1</td>
-                                <td>Av2</td>
-                                <td>Aps2</td>
-                                <td>Av3</td>
-                                <td></td>
+                                <td style="width:200px !important">Materia</td>
+                                <td class="spaceTituloDt">Av1</td>
+                                <td class="spaceTituloDt">Aps1</td>
+                                <td class="spaceTituloDt">Av2</td>
+                                <td class="spaceTituloDt">Aps2</td>
+                                <td class="spaceTituloDt">Av3</td>
+                                <td style="width:300px"></td>
                             </tr>
                         </thead>
                         <tr v-for="nota in notas">
                             <td  style="width:200px !important">
-                                <span v-show="!nota.edit">{{nota.materia}}</span>
-                                <input type="text" v-model="nota.materia" v-show="nota.edit">
+                                <span>{{nota.materia}}</span>
                             </td>
-                            <td  style="width:120px !important">
-                                <span v-show="!nota.edit">{{nota.av1}}</span>
-                                <input type="text" v-model="nota.av1" v-show="nota.edit">
-                            </td>
-                            <td  style="width:120px">
-                                <span v-show="!nota.edit">{{nota.aps1}}</span>
-                                <input type="text" v-model="nota.aps1" v-show="nota.edit">
+                            <td class="tamanhoValor">
+                                <span  v-show="!nota.edit">{{nota.av1}}</span>
+                                <input class="tamanhoEdicao" type="text" v-model="nota.av1" v-show="nota.edit">
+                            </td > 
+                            <td class="tamanhoValor">
+                                <span  v-show="!nota.edit">{{nota.aps1}}</span>
+                                <input class="tamanhoEdicao" type="text" v-model="nota.aps1" v-show="nota.edit">
                             </td>
 
-                            <td  style="width:120px">
+                            <td  class="tamanhoValor">
                                 <span v-show="!nota.edit">{{nota.av2}}</span>
-                                <input type="text" v-model="nota.av2" v-show="nota.edit">
+                                <input class="tamanhoEdicao" type="text" v-model="nota.av2" v-show="nota.edit">
                             </td>
 
-                            <td  style="width:120px">
-                                <span v-show="!nota.edit">{{nota.aps2}}</span>
-                                <input type="text" v-model="nota.aps2" v-show="nota.edit">
+                            <td class="tamanhoValor">
+                                <span  v-show="!nota.edit">{{nota.aps2}}</span>
+                                <input class="tamanhoEdicao" type="text" v-model="nota.aps2" v-show="nota.edit">
                             </td>
 
-                            <td  style="width:120px">
-                                <span v-show="!nota.edit">{{nota.av3}}</span>
-                                <input type="text" v-model="nota.av3" v-show="nota.edit">
+                            <td class="tamanhoValor">
+                                <span  v-show="!nota.edit">{{nota.av3}}</span>
+                                <input class="tamanhoEdicao" type="text" v-model="nota.av3" v-show="nota.edit">
                             </td>
 
 
-                            <td  style="width:300px !important">
-                                <button class="btn btn-primary btn-sm" v-show="!nota.edit" v-on:click="editarNota(nota)" >
-                                    Editar</button>
+                            <td style="width:300px">
+                                <button class="btn btn-primary btn-sm" v-show="!nota.edit" v-on:click="editarNota(nota)" >Editar</button>
                                 <button class="btn btn-primary btn-sm" v-show="nota.edit" v-on:click="salvarEdicao(nota)">Salvar</button>
                                 <button class="btn btn-danger btn-sm" v-show="nota.edit" v-on:click="cancelarEdicao(nota)">Cancelar</button>
                             </td>
@@ -140,6 +143,7 @@
         <script src="../plugins/jquery/js/popper.min.js"></script>
         <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
         <script src="../plugins/vue/js/vue.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
         <script src="../plugins/apiGatewayService.js"></script>
         <script src="./index.js"></script>  
     </body>

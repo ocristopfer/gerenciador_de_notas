@@ -5,5 +5,20 @@ body {
     padding: 3rem 1.5rem;
     text-align: center;
 }
+
+.tamanhoValor{
+    width: 120px;
+    text-align: center; 
+    margin: 0;
+}
+
+.tamanhoEdicao{
+    width: 40px;
+    text-align: center; 
+    margin: 0;
+}
+
 table{ width:100%; }
 table td { border:1px solid #ccc }
+
+
