@@ -34,8 +34,13 @@ $('#login').click(function () {
 
             }
     , erro => {
-        alert('Erro ao logar');
-        console.log(erro);
+
+        bootbox.alert({
+            message: "Erro ao tentar logar, verifique o login e senha!",
+            size: 'medium',
+            locale: 'pt-br',
+            centerVertical: true,
+        });
     })
 })
 

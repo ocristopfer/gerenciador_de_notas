@@ -30,6 +30,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(ws.AlunoWS.class);
+        resources.add(ws.AvaliacaoWS.class);
         resources.add(ws.UsuarioWS.class);
     }
     

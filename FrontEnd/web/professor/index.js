@@ -18,57 +18,24 @@ $(document).ready(function () {
 var officeVM = new Vue({
     el: '#listaNotas',
     data: {
-        matriculaBusca: "",
-        notas: [
-            {
-                materia: 'Materia1',
-                id:"1",
-                av1: '5',
-                aps1: '2',
-                av2: '5',
-                aps2: '2',
-                av3: '5',
-                edit: false,
-                novaNota: false
-            },
-            {
-                materia: 'Materia1',
-                id:"1",
-                av1: '5',
-                aps1: '2',
-                av2: '5',
-                aps2: '2',
-                av3: '5',
-                edit: false,
-                novaNota: false
-            },
-            {
-                materia: 'Materia1',
-                id:"1",
-                av1: '5',
-                aps1: '2',
-                av2: '5',
-                aps2: '2',
-                av3: '5',
-                edit: false,
-                novaNota: false
-            }
-        ]
+        matriculaBusca: "2020100",
+        nomeAluno: "",
+        notas: {}
     },
     mounted() {
-      //  $('#tbNotas').DataTable({});
-      
+        //  $('#tbNotas').DataTable({});
+
     },
     computed: {
-        
+
         /*people2: function () {
-            var _people = [];
-            for (var i = 0, notas; people = this.people[i]; i++) {
-                people.edit = false;
-                _people.push(people);
-            }
-            return _people;
-        }*/
+         var _people = [];
+         for (var i = 0, notas; people = this.people[i]; i++) {
+         people.edit = false;
+         _people.push(people);
+         }
+         return _people;
+         }*/
     },
     methods: {
         editarNota: function (nota) {
@@ -76,7 +43,7 @@ var officeVM = new Vue({
             nota.edit = true;
         }, cancelarEdicao: function (nota) {
             Object.assign(nota, this._originalNota);
-            if(nota.novaNota){
+            if (nota.novaNota) {
                 this.notas.pop(nota);
             }
             nota.edit = false;
@@ -85,30 +52,61 @@ var officeVM = new Vue({
             nota.novaNota = false;
             //Todo requisicao a api que vai fazer o crud das notas.
             //Sendo passado o objeto nota que possuem todas as informações necessárias
-            nota.edit = false;
-        },buscarAluno : function(){
+
+            apiRequest('http://localhost:8080/WebService/webresources/avaliacao', nota, 'PUT', {"Authorization": getCokie("token")}).then(
+                    sucesso => {
+                        nota.idAvaliacao = sucesso.idAvaliacao;
+                        nota.edit = false;
+                    }, erro => {
+            }
+            )
+
+
+        }, buscarAluno: function () {
             //TODO
             //Ajax para carregar as notas do aluno que irá preencher o objeto notas
             //Necessario criar a rota da api;
-            if(this.matriculaBusca != 0){
-                console.log("buscar")
+            if (this.matriculaBusca != 0) {
+                data = {
+                    idAluno: this.matriculaBusca
+                }
+                apiRequest('http://localhost:8080/WebService/webresources/avaliacao', data, 'GET', {"Authorization": getCokie("token")}).then(
+                        sucesso => {
+                            sucesso.forEach(element => {
+                                element.edit = false,
+                                        element.novaNota = false
+                            });
+                            this.notas = sucesso;
+                            this.nomeAluno = sucesso[0].nomeAluno;
+
+                        }, erro => {
+
+                }
+                )
             }
-        },adicionarNota: function(){
-           this._nota = Object.assign({
-                materia: 'Nova NOta',
-                id: null,
-                av1: '5',
-                aps1: '2',
-                av2: '5',
-                aps2: '2',
-                av3: '5',
-                edit: true,
-                novaNota: true
-                
-            });
-            console.log( this._nota);
-            this.notas.push( this._nota);
+        }, adicionarNota: function () {
+            if (this.notas.length > 0) {
+                this._nota = Object.assign({
+                    materia: 'Nova NOta',
+                    idAvaliacao: null,
+                    av1: '5',
+                    aps1: '2',
+                    av2: '5',
+                    aps2: '2',
+                    av3: '5',
+                    edit: true,
+                    novaNota: true
+
+                });
+                this.notas.push(this._nota);
+            }
+
         }
     }
 })
 
+$('#logout').click(function () {
+    console.log('logout')
+         eraseCookie('token');
+            window.location.href = "../login";
+});

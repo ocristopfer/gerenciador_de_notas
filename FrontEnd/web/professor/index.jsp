@@ -36,14 +36,14 @@
     <body>
 
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="#">Lançar Notas</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <!--<li class="nav-item active">
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
@@ -59,9 +59,9 @@
                             <a class="dropdown-item" href="#">Another action</a>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
-                    </li>
+                    </li>-->
                 </ul>
-
+                <button class="btn btn-outline-danger my-2 my-sm-0" id="logout">Logout</button>
             </div>
         </nav>
 
@@ -69,15 +69,17 @@
 
             <div class="starter-template">
                 <h1>Pagina do Professor</h1>
-
-
                 <div id="listaNotas">
+                    
                     <div class="m-3">
                         <input style="width: 200px" type="text" v-model="matriculaBusca" placeholder="Buscar Aluno por Matricula" aria-label="Search">
                         <button class="btn btn-outline-success btn-sm my-2"  v-on:click="buscarAluno(this)" >Buscar</button>
                     </div> 
+                    
+                    <h4>Notas do Aluno: {{nomeAluno}}</h4>
+                    
                     <div style="float:left" class="mb-3">
-                        <button class="btn btn-primary btn-sm"  v-on:click="adicionarNota()" >Lançar Notas</button>
+                        <button class="btn btn-primary btn-sm"  v-on:click="adicionarNota()" >Lançar nova Nota</button>
                     </div>
                     
                     <table id="tbNotas" class="table">
