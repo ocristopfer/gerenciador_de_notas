@@ -14,7 +14,9 @@ $(document).ready(function () {
 
     apiRequest('http://localhost:8080/WebService/webresources/aluno/notas', null, 'GET', {"Authorization": getCokie("token")}).then(
             sucesso => {
+                $("#nomeAluno").text(sucesso[0].nomeAluno)
                 $('#dtAluno').DataTable({
+                    dom: 'rt',
                     data: sucesso,
                     columns: [
                         {data: 'materia'},

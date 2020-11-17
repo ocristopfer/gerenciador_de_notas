@@ -27,7 +27,7 @@
 
         <!-- Bootstrap core CSS -->
         <link href="../plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+        <link rel="stylesheet" type="text/css" href="../plugins/datatables/jquery.dataTables.css">
 
         <!-- Custom styles for this template -->
         <link href="index.css" rel="stylesheet">
@@ -70,12 +70,12 @@
 
             <div class="starter-template">
 
-                <h1>Notas do Aluno </h1>
-                
+                <h3>Notas do Aluno: </h3>
+                <h4 id="nomeAluno"></h4>
                 <table id="dtAluno">
                     <thead>
                         <tr>
-                            <th>Materia</th>
+                            <td>Materia</td>
                             <td>Av1</td>
                             <td>Aps1</td>
                             <td>Av2</td>
@@ -99,7 +99,7 @@
         <script src="../plugins/jquery/js/jquery-3.5.1.min.js"></script>
         <script src="../plugins/jquery/js/popper.min.js"></script>
         <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" charset="utf8" src="../plugins/datatables/jquery.dataTables.js"></script>
         <script src="../plugins/apiGatewayService.js"></script>
         <script src="./index.js"></script>  
     </body>

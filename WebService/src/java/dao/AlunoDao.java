@@ -27,10 +27,10 @@ public class AlunoDao {
     private String sql;
 
     public  List<Nota> getNotasAluno(String matricula) throws ClassNotFoundException, SQLException {
-        sql = "SELECT d.DISCIPLINA_NOME AS materia\n" +
+        sql = "SELECT aluno.ALUNO_NOME , d.DISCIPLINA_NOME AS materia\n" +
             "	,b.*\n" +
-            "	,CAST(((IFNULL(b.TRABALHO_ACADEMICO_AV1, 0) + IFNULL(b.APS1, 0) + IFNULL(b.TRABALHO_ACADEMICO_AV2, 0) + IFNULL(b.APS2, 0) + IFNULL(b.TRABALHO_ACADEMICO_AV3, 0)) / 3) AS DECIMAL(19,1)) AS media\n" +
-            "	,IF(((IFNULL(b.TRABALHO_ACADEMICO_AV1, 0) + IFNULL(b.APS1, 0) + IFNULL(b.TRABALHO_ACADEMICO_AV2, 0) + IFNULL(b.APS2, 0) + IFNULL(b.TRABALHO_ACADEMICO_AV3, 0)) / 3) > 7 ,\"Aprovado\", \"Reprovado\") AS resultado\n" +
+            "	,CAST(((IFNULL(b.TRABALHO_ACADEMICO_AV1, 0) + IFNULL(b.APS1, 0) + IFNULL(b.TRABALHO_ACADEMICO_AV2, 0) + IFNULL(b.APS2, 0) + IFNULL(b.TRABALHO_ACADEMICO_AV3, 0)) / (IF(b.TRABALHO_ACADEMICO_AV1 IS NULL, 0, 1) + IF(b.TRABALHO_ACADEMICO_AV2 IS NULL, 0, 1) + IF(b.TRABALHO_ACADEMICO_AV3 IS NULL, 0, 1))) AS DECIMAL(19,1)) AS media\n" +
+            "	,IF(((IFNULL(b.TRABALHO_ACADEMICO_AV1, 0) + IFNULL(b.APS1, 0) + IFNULL(b.TRABALHO_ACADEMICO_AV2, 0) + IFNULL(b.APS2, 0) + IFNULL(b.TRABALHO_ACADEMICO_AV3, 0)) / (IF(b.TRABALHO_ACADEMICO_AV1 IS NULL, 0, 1) + IF(b.TRABALHO_ACADEMICO_AV2 IS NULL, 0, 1) + IF(b.TRABALHO_ACADEMICO_AV3 IS NULL, 0, 1))) > 7 ,\"Aprovado\", \"Reprovado\") AS resultado\n" +
             "FROM curso_has_aluno AS a\n" +
             "INNER JOIN avaliacao AS b ON a.ALUNO_MATRICULA = b.idMATRICULA\n" +
             "INNER JOIN curso AS c ON a.curso_idcurso = c.idcurso\n" +
@@ -52,6 +52,7 @@ public class AlunoDao {
             anota.setNotaAps2(rs.getFloat("APS2"));
             anota.setMedia(rs.getFloat("media"));
             anota.setResultado(rs.getString("resultado"));
+            anota.setNomeAluno(rs.getString("ALUNO_NOME"));
             notas.add(anota);
         }
         return notas;

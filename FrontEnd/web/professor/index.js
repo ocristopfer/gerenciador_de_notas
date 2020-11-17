@@ -20,10 +20,18 @@ var officeVM = new Vue({
     data: {
         matriculaBusca: "2020100",
         nomeAluno: "",
+        disciplinaSelecionada: "",
+        listaDisciplinas: {},
         notas: {}
     },
     mounted() {
         //  $('#tbNotas').DataTable({});
+        apiRequest('http://localhost:8080/WebService/webresources/disciplina', null, 'GET', {"Authorization": getCokie("token")}).then(
+                sucesso => {
+                    this.listaDisciplinas = sucesso;
+                }, erro => {
+        }
+        )
 
     },
     computed: {
@@ -49,14 +57,26 @@ var officeVM = new Vue({
             nota.edit = false;
         }, salvarEdicao: function (nota) {
             this._originalNota = Object.assign({}, nota);
+            if(nota.novaNota){
+                if(nota.idDisciplina == null){
+                     bootbox.alert({
+                        message: "Selecione um disciplina!",
+                        size: 'medium',
+                        locale: 'pt-br',
+                        centerVertical: true,
+                    });
+                    return;
+                }
+            }
             nota.novaNota = false;
             //Todo requisicao a api que vai fazer o crud das notas.
             //Sendo passado o objeto nota que possuem todas as informações necessárias
-
+            
             apiRequest('http://localhost:8080/WebService/webresources/avaliacao', nota, 'PUT', {"Authorization": getCokie("token")}).then(
                     sucesso => {
                         nota.idAvaliacao = sucesso.idAvaliacao;
                         nota.edit = false;
+                        this.buscarAluno();
                     }, erro => {
             }
             )
@@ -66,7 +86,7 @@ var officeVM = new Vue({
             //TODO
             //Ajax para carregar as notas do aluno que irá preencher o objeto notas
             //Necessario criar a rota da api;
-            if (this.matriculaBusca != 0) {
+            if (this.matriculaBusca !== 0) {
                 data = {
                     idAluno: this.matriculaBusca
                 }
@@ -87,13 +107,16 @@ var officeVM = new Vue({
         }, adicionarNota: function () {
             if (this.notas.length > 0) {
                 this._nota = Object.assign({
-                    materia: 'Nova NOta',
-                    idAvaliacao: null,
-                    av1: '5',
-                    aps1: '2',
-                    av2: '5',
-                    aps2: '2',
-                    av3: '5',
+                    materia: '',
+                    nomeAluno: this.nomeAluno,
+                    idAvaliacao: null,                   
+                    av1: '0',
+                    aps1: '0',
+                    av2: '0',
+                    aps2: '0',
+                    av3: '0',
+                    matricula:  this.matriculaBusca,
+                    idDisciplina: null,
                     edit: true,
                     novaNota: true
 
@@ -101,12 +124,20 @@ var officeVM = new Vue({
                 this.notas.push(this._nota);
             }
 
+        }, atualizarDisciplina: function(nota){
+            nota.idDisciplina = this.disciplinaSelecionada.id;
+            nota.materia = this.disciplinaSelecionada.text;
+            console.log(this.disciplinaSelecionada.id, this.disciplinaSelecionada.text)
+        }, valorMaximo(objeto, valor, limite){
+            if(objeto[valor] > limite){
+                objeto[valor] = 0;
+            }
         }
     }
 })
 
 $('#logout').click(function () {
     console.log('logout')
-         eraseCookie('token');
-            window.location.href = "../login";
+    eraseCookie('token');
+    window.location.href = "../login";
 });

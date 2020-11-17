@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -87,32 +88,31 @@ public class AvaliacaoDao {
     public int salvar(Avaliacao avalicao) throws ClassNotFoundException, SQLException{
         try {
             //TODO: rotina para inserir uma nova avaliação;
-            sql = "INSERT INTO avaliacao (\n"
-                    + "TRABALHO_ACADEMICO_AV1,\n"
-                    + "TRABALHO_ACADEMICO_AV2,\n"
-                    + "TRABALHO_ACADEMICO_AV3,\n"
-                    + "APS1,\n"
-                    + "APS2,\n"
-                    + "idMATRICULA,\n"
-                    + "idDISCIPLINA)\n"
-                    + "VALUES(?,?,?,?,?,?,?);"
-                    + "SELECT LAST_INSERT_ID();";
+            sql = "INSERT INTO avaliacao ("
+                    + "`TRABALHO_ACADEMICO_AV1`,"
+                    + "`APS1`,"
+                    + "`TRABALHO_ACADEMICO_AV2`,"
+                    + "`APS2`,"
+                    + "`TRABALHO_ACADEMICO_AV3`,"
+                    + "`idMATRICULA`,"
+                    + "`idDISCIPLINA`)"
+                    + " VALUES (?,?,?,?,?,?,?);"
+                    + "";
             
             con = DbCon.openCon();
-            pst = con.prepareStatement(sql);
-            pst.setFloat(1, avalicao.getAv1());
-            pst.setFloat(2, avalicao.getAv2());
-            pst.setFloat(3, avalicao.getAv3());
-            pst.setFloat(4, avalicao.getAps1());
-            pst.setFloat(5, avalicao.getAps2());
-            pst.setInt(6, avalicao.getIdAvaliacao());
-            pst.setInt(7, avalicao.getMatricula());
-            pst.setInt(8, avalicao.getIdDisciplina());
+            pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pst.setDouble(1, avalicao.getAv1());
+            pst.setDouble(2, avalicao.getAps1());
+            pst.setDouble(3, avalicao.getAv2());
+            pst.setDouble(4, avalicao.getAps2());
+            pst.setDouble(5, avalicao.getAv3());           
+            pst.setInt(6, avalicao.getMatricula());
+            pst.setInt(7, avalicao.getIdDisciplina());
+                        
+            int result = pst.executeUpdate();
+              DbCon.closeCon();
             
-            int[] result = pst.executeBatch();
-            DbCon.closeCon();
-            
-            return result[0];
+            return result;
         } catch (SQLException ex) {
             Logger.getLogger(AvaliacaoDao.class.getName()).log(Level.SEVERE, null, ex);
             return 0;

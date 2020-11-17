@@ -18,6 +18,7 @@ public class Nota {
      private Float notaAv3;
      private Float media;
      private String resultado;
+     private String nomeAluno;
 
     public String getMateria() {
         return materia;
@@ -81,6 +82,14 @@ public class Nota {
 
     public void setResultado(String resultado) {
         this.resultado = resultado;
+    }
+
+    public String getNomeAluno() {
+        return nomeAluno;
+    }
+
+    public void setNomeAluno(String nomeAluno) {
+        this.nomeAluno = nomeAluno;
     }
     
     

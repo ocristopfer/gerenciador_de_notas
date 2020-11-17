@@ -27,7 +27,7 @@
 
         <!-- Bootstrap core CSS -->
         <link href="../plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+        <link rel="stylesheet" type="text/css" href="../plugins/datatables/jquery.dataTables.css">
 
         <!-- Custom styles for this template -->
         <link href="./index.css" rel="stylesheet">
@@ -96,30 +96,37 @@
                         </thead>
                         <tr v-for="nota in notas">
                             <td  style="width:200px !important">
-                                <span>{{nota.materia}}</span>
+                                <span v-show="!nota.novaNota">{{nota.materia}}</span>
+                                <select v-show="nota.novaNota" v-model="disciplinaSelecionada" @change="atualizarDisciplina(nota)">
+                                    <option value="" disabled selected>Escolha uma Disciplina</option>
+                                    <option
+                                        v-for="disciplina in listaDisciplinas" v-bind:value="{ id: disciplina.idDisciplina, text: disciplina.nomeDisciplina }" >
+                                        {{ disciplina.nomeDisciplina }}
+                                   </option>
+                                  </select>
                             </td>
                             <td class="tamanhoValor">
                                 <span  v-show="!nota.edit">{{nota.av1}}</span>
-                                <input class="tamanhoEdicao" type="text" v-model="nota.av1" v-show="nota.edit">
+                                <input class="tamanhoEdicao" v-model="nota.av1" v-show="nota.edit" max="7" @change="valorMaximo(nota,'av1',7)">
                             </td > 
                             <td class="tamanhoValor">
                                 <span  v-show="!nota.edit">{{nota.aps1}}</span>
-                                <input class="tamanhoEdicao" type="text" v-model="nota.aps1" v-show="nota.edit">
+                                <input class="tamanhoEdicao" type="text" v-model="nota.aps1" v-show="nota.edit" max="3" @change="valorMaximo(nota,'aps1',3)">
                             </td>
 
                             <td  class="tamanhoValor">
                                 <span v-show="!nota.edit">{{nota.av2}}</span>
-                                <input class="tamanhoEdicao" type="text" v-model="nota.av2" v-show="nota.edit">
+                                <input class="tamanhoEdicao" type="text" v-model="nota.av2" v-show="nota.edit" max="8" @change="valorMaximo(nota,'av2',8)">
                             </td>
 
                             <td class="tamanhoValor">
                                 <span  v-show="!nota.edit">{{nota.aps2}}</span>
-                                <input class="tamanhoEdicao" type="text" v-model="nota.aps2" v-show="nota.edit">
+                                <input class="tamanhoEdicao" type="text" v-model="nota.aps2" v-show="nota.edit" max="2" @change="valorMaximo(nota,'aps2',2)">
                             </td>
 
                             <td class="tamanhoValor">
                                 <span  v-show="!nota.edit">{{nota.av3}}</span>
-                                <input class="tamanhoEdicao" type="text" v-model="nota.av3" v-show="nota.edit">
+                                <input class="tamanhoEdicao" type="text" v-model="nota.av3" v-show="nota.edit"  max="10" @change="valorMaximo(nota,'av3',10)">
                             </td>
 
 
@@ -145,7 +152,8 @@
         <script src="../plugins/jquery/js/popper.min.js"></script>
         <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
         <script src="../plugins/vue/js/vue.min.js"></script>
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+         <script src="../plugins/bootbox/bootbox.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="../plugins/datatables/jquery.dataTables.js"></script>
         <script src="../plugins/apiGatewayService.js"></script>
         <script src="./index.js"></script>  
     </body>

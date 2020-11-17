@@ -19,7 +19,7 @@ USE `av1_db`;
 
 -- Copiando estrutura para tabela av1_db.aluno
 CREATE TABLE IF NOT EXISTS `aluno` (
-  `MATRICULA` int NOT NULL,
+  `MATRICULA` int NOT NULL AUTO_INCREMENT,
   `ALUNO_NOME` varchar(45) DEFAULT NULL,
   `CURSO_idCURSO` int NOT NULL,
   `idusuario` int DEFAULT NULL,
@@ -66,7 +66,7 @@ INSERT INTO `aluno_has_disciplina` (`ALUNO_MATRICULA`, `DISCIPLINA_idDISCIPLINA`
 
 -- Copiando estrutura para tabela av1_db.avaliacao
 CREATE TABLE IF NOT EXISTS `avaliacao` (
-  `idAVALIACAO` int NOT NULL,
+  `idAVALIACAO` int NOT NULL AUTO_INCREMENT,
   `TRABALHO_ACADEMICO_AV1` double DEFAULT NULL,
   `APS1` double DEFAULT NULL,
   `TRABALHO_ACADEMICO_AV2` double DEFAULT NULL,
@@ -105,7 +105,7 @@ INSERT INTO `avaliacao` (`idAVALIACAO`, `TRABALHO_ACADEMICO_AV1`, `APS1`, `TRABA
 
 -- Copiando estrutura para tabela av1_db.curso
 CREATE TABLE IF NOT EXISTS `curso` (
-  `idCURSO` int NOT NULL,
+  `idCURSO` int NOT NULL AUTO_INCREMENT,
   `NOME_CURSO` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idCURSO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -139,7 +139,7 @@ INSERT INTO `curso_has_aluno` (`CURSO_idCURSO`, `ALUNO_MATRICULA`) VALUES
 
 -- Copiando estrutura para tabela av1_db.disciplina
 CREATE TABLE IF NOT EXISTS `disciplina` (
-  `idDISCIPLINA` int NOT NULL,
+  `idDISCIPLINA` int NOT NULL AUTO_INCREMENT,
   `DISCIPLINA_NOME` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idDISCIPLINA`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -172,8 +172,8 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 -- Copiando dados para a tabela av1_db.usuario: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` (`id`, `nome`, `login`, `senha`, `tipo`) VALUES
-	(1, 'cris', 'cris', '123', 0),
-	(2, '2', '2', '2', 1);
+	(1, 'professor', 'professor', '123', 0),
+	(2, 'aluno', 'aluno', '123', 1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
