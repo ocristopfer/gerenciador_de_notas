@@ -32,13 +32,14 @@ public class AvaliacaoDao {
     public List<Avaliacao> getAvalicaoAluno(int idAluno) throws ClassNotFoundException, SQLException {
         List<Avaliacao> ListAvalicao = new ArrayList<>();
         Avaliacao avalicao = null;
-        sql = "SELECT aluno.ALUNO_NOME, disciplina.DISCIPLINA_NOME\n"
-                + "	,avaliacao.*\n"
-                + "FROM avaliacao\n"
-                + " INNER JOIN aluno ON aluno.MATRICULA = avaliacao.idMATRICULA\n"
-                + "INNER JOIN disciplina\n"
-                + "	ON disciplina.idDISCIPLINA = avaliacao.idDISCIPLINA\n"
-                + "WHERE avaliacao.idMATRICULA = '"+ idAluno + "'";
+        sql = "SELECT aluno.MATRICULA\n" +
+                "	,aluno.ALUNO_NOME\n" +
+                "	,disciplina.DISCIPLINA_NOME\n" +
+                "	,avaliacao.*\n" +
+                "FROM aluno\n" +
+                "LEFT JOIN avaliacao ON aluno.MATRICULA = avaliacao.idMATRICULA\n" +
+                "LEFT JOIN disciplina ON disciplina.idDISCIPLINA = avaliacao.idDISCIPLINA\n" +
+                "WHERE aluno.MATRICULA = '"+ idAluno + "'";
         con = DbCon.openCon();
         pst = con.prepareStatement(sql);
         rs = pst.executeQuery();
@@ -52,7 +53,7 @@ public class AvaliacaoDao {
             avalicao.setAps2(rs.getFloat("APS2"));
             avalicao.setIdAvaliacao(rs.getInt("idAVALIACAO"));
             avalicao.setNomeAluno(rs.getString("ALUNO_NOME"));
-            avalicao.setMatricula(rs.getInt("idMATRICULA"));
+            avalicao.setMatricula(rs.getInt("MATRICULA"));
             avalicao.setIdDisciplina(rs.getInt("idDISCIPLINA"));
             ListAvalicao.add(avalicao);
         }

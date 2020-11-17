@@ -22,7 +22,7 @@ var officeVM = new Vue({
         nomeAluno: "",
         disciplinaSelecionada: "",
         listaDisciplinas: {},
-        notas: {}
+        notas: null
     },
     mounted() {
         //  $('#tbNotas').DataTable({});
@@ -98,7 +98,13 @@ var officeVM = new Vue({
                                 element.edit = false,
                                 element.novaNota = false
                             });
-                            this.notas = sucesso;
+                            console.log(sucesso)
+                            if(sucesso[0].idAvaliacao !== 0){
+                                this.notas = sucesso;    
+                            }else{
+                                this.notas = [];
+                            }
+                                                        
                             this.nomeAluno = sucesso[0].nomeAluno;
                         }else{
                              this.nomeAluno = "Não encontrado"
@@ -114,7 +120,7 @@ var officeVM = new Vue({
                 )
             }
         }, adicionarNota: function () {
-            if (this.notas.length > 0) {
+            if (this.notas !== null) {
                 this._nota = Object.assign({
                     materia: '',
                     nomeAluno: this.nomeAluno,

@@ -75,6 +75,7 @@ public class AlunoWS {
             String matricula = Token.descriptografarToken(token).split(";")[2];
             AlunoDao oAluno = new AlunoDao();
             List<Nota> notas = oAluno.getNotasAluno(matricula);
+            
             Gson g = new Gson();
             return g.toJson(notas);
         }else{
