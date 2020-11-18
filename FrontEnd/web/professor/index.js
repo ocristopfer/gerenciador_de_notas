@@ -37,18 +37,7 @@ var officeVM = new Vue({
 
         }
         )
-        apiRequest('http://localhost:8080/WebService/webresources/aluno', null, 'GET', {"Authorization": getCokie("token")}).then(
-                sucesso => {
-                    sucesso.forEach(element => {
-                        element.edit = false,
-                        element.novoAluno = false
-                    });
-                    this.listAlunos = sucesso;
-                    
-                }, erro => {
-
-        }
-        )
+        this.listarAlunos();
 
 
     },
@@ -64,6 +53,15 @@ var officeVM = new Vue({
          }*/
     },
     methods: {
+        novoAluno: function () {
+            this._aluno = Object.assign({
+                nomeAluno: this.nomeAluno,
+                edit: true,
+                novoAluno: true
+
+            });
+            this.listAlunos.push(this._aluno);
+        },
         verNota: function (matricula) {
             console.log('estupoido', matricula)
             if (matricula) {
@@ -74,14 +72,42 @@ var officeVM = new Vue({
                 this.verNotas = false;
             }
         },
-        novoAluno: function(){
-            this._aluno = Object.assign({
-                    nomeAluno: this.nomeAluno,
-                    edit: true,
-                    novoAluno: true
+        editarAluno: function (aluno) {
+            this._originalAluno = Object.assign({}, aluno);
+            aluno.edit = true;
+        },
+        cancelarEdicaoAluno: function (aluno) {
+            Object.assign(aluno, this._originalAluno);
+            if (aluno.novoAluno) {
+                this.listAlunos.pop(aluno);
+            }
+            aluno.edit = false;
+        },
+        salvarAluno: function (aluno) {
+            aluno.novoAluno = false;
+            //Todo requisicao a api que vai fazer o crud das notas.
+            //Sendo passado o objeto nota que possuem todas as informações necessárias
 
-                });
-                this.listAlunos.push(this._aluno);
+            apiRequest('http://localhost:8080/WebService/webresources/aluno', aluno, 'PUT', {"Authorization": getCokie("token")}).then(
+                    sucesso => {
+                        this.listarAlunos();
+                    }, erro => {
+            }
+            )
+        },
+        listarAlunos: function () {
+            apiRequest('http://localhost:8080/WebService/webresources/aluno', null, 'GET', {"Authorization": getCokie("token")}).then(
+                    sucesso => {
+                        sucesso.forEach(element => {
+                            element.edit = false,
+                                    element.novoAluno = false
+                        });
+                        this.listAlunos = sucesso;
+
+                    }, erro => {
+
+            }
+            )
         },
         editarNota: function (nota) {
             this._originalNota = Object.assign({}, nota);

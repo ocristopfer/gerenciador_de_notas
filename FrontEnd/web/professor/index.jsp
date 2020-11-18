@@ -106,9 +106,9 @@
 
                                     <td style="width:300px">
                                         <button class="btn btn-primary btn-sm" v-show="!aluno.edit" v-on:click="verNota(aluno.matricula)" >Ver Notas</button>
-                                        <button class="btn btn-primary btn-sm" v-show="!aluno.edit" v-on:click="editarNota(aluno)" >Editar</button>
-                                        <button class="btn btn-primary btn-sm" v-show="aluno.edit" v-on:click="salvarEdicao(aluno)">Salvar</button>
-                                        <button class="btn btn-danger btn-sm" v-show="aluno.edit" v-on:click="cancelarEdicao(aluno)">Cancelar</button>
+                                        <button class="btn btn-primary btn-sm" v-show="!aluno.edit" v-on:click="editarAluno(aluno)" >Editar</button>
+                                        <button class="btn btn-primary btn-sm" v-show="aluno.edit" v-on:click="salvarAluno(aluno)">Salvar</button>
+                                        <button class="btn btn-danger btn-sm" v-show="aluno.edit" v-on:click="cancelarEdicaoAluno(aluno)">Cancelar</button>
                                     </td>
                                 </tr>
                             </table>
