@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.Aluno;
 import model.Nota;
 import model.Usuario;
 
@@ -26,6 +27,24 @@ public class AlunoDao {
     private Connection con;
     private String sql;
 
+    public List<Aluno> getAlunos() throws SQLException, ClassNotFoundException{
+        sql = "SELECT * FROM aluno";
+        
+        List<Aluno> Alunos = new ArrayList<>();
+        con = DbCon.openCon();
+        pst = con.prepareStatement(sql);
+        rs = pst.executeQuery();
+        while (rs.next()) {
+            Aluno aluno = new Aluno();
+            aluno.setMatricula(rs.getInt("MATRICULA"));
+            aluno.setAlunoNome(rs.getString("ALUNO_NOME"));
+            aluno.setIdCurso(rs.getInt("CURSO_idCURSO"));
+            aluno.setIdUsuario(rs.getInt("idusuario"));
+            Alunos.add(aluno);
+        }
+        return Alunos;
+    }
+    
     public  List<Nota> getNotasAluno(String matricula) throws ClassNotFoundException, SQLException {
         sql = "SELECT aluno.ALUNO_NOME , d.DISCIPLINA_NOME AS materia\n" +
             "	,b.*\n" +

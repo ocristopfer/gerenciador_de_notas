@@ -20,6 +20,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import model.Aluno;
 import model.Nota;
 import model.Token;
 
@@ -47,9 +48,25 @@ public class AlunoWS {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
+    public String getJson(@HeaderParam("Authorization") String token) throws SQLException, ClassNotFoundException {
         //TODO return proper representation object
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        
+        if (token.isEmpty()){
+             throw new WebApplicationException(400);
+        }
+        Token otoken = new Token();
+        otoken.setToken(token);
+        if (otoken.validarToken(otoken).equals("professor")){
+            String matricula = Token.descriptografarToken(token).split(";")[2];
+            AlunoDao oAluno = new AlunoDao();
+            List<Aluno> alunos = oAluno.getAlunos();
+            
+            Gson g = new Gson();
+            return g.toJson(alunos);
+        }else{
+             throw new WebApplicationException(400);
+        }
     }
 
     /**
