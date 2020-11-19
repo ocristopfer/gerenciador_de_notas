@@ -43,7 +43,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                     <ul class="navbar-nav mr-auto">
-                        <<li class="nav-item active">
+                        <!--<li class="nav-item active">
                             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
@@ -59,7 +59,7 @@
                                 <a class="dropdown-item" href="#">Another action</a>
                                 <a class="dropdown-item" href="#">Something else here</a>
                             </div>
-                        </li>>
+                        </li>-->
                     </ul>
                     <button class="btn btn-outline-danger my-2 my-sm-0" id="logout">Logout</button>
                 </div>
@@ -79,34 +79,37 @@
                                     <tr>
                                         <td>Matricula</td>
                                         <td class="spaceTituloDt">Nome</td>
+                                        <td>Curso</td>
+                                        <td>Ações</td>
                                     </tr>
                                 </thead>
                                 <tr v-for="aluno in listAlunos">
                                     <td class="">
-                                        <span  v-show="!aluno.edit">{{aluno.matricula}}</span>
-                                        <input class="" v-model="aluno.matricula" v-show="aluno.edit">
+                                        <span>{{aluno.matricula}}</span>
+                                        <!--input class="" v-model="aluno.matricula" v-show="aluno.edit"-->
                                     </td > 
                                     <td class="">
                                         <span  v-show="!aluno.edit">{{aluno.nome}}</span>
                                         <input class="" type="text" v-model="aluno.nome" v-show="aluno.edit">
                                     </td>
 
-                                    <!--td  style="width:200px !important">
-                                        <span v-show="!aluno.novoAluno">{{aluno.curso}}</span>
-                                        <select v-show="aluno.novoAluno" v-model="cursoSelecionado" @change="atualizarDisciplina(nota)">
-                                            <option value="" disabled selected>Escolha uma Disciplina</option>
+                                    <td  style="width:200px !important">
+                                        <span v-show="!aluno.novoAluno">{{aluno.nomeCurso}}</span>
+                                        <select v-show="aluno.novoAluno" v-model="cursoSelecionado" @change="atualizarCurso(aluno)">
+                                            <option value="" disabled selected>Escolha um Curso</option>
                                             <option
-                                                v-for="curso in listaCursos" v-bind:value="{ id: curso.idCurso, text: disciplina.nomeCurso }" >
-                                                {{ disciplina.nomeDisciplina }}
+                                                v-for="curso in listaCursos" v-bind:value="{ id: curso.idCurso, text: curso.nomeCurso }" >
+                                                {{ curso.nomeCurso }}
                                             </option>
                                         </select>
-                                    </td-->
+                                    </td>
 
 
 
                                     <td style="width:300px">
                                         <button class="btn btn-primary btn-sm" v-show="!aluno.edit" v-on:click="verNota(aluno.matricula)" >Ver Notas</button>
                                         <button class="btn btn-primary btn-sm" v-show="!aluno.edit" v-on:click="editarAluno(aluno)" >Editar</button>
+                                        <button class="btn btn-danger btn-sm" v-show="!aluno.edit" v-on:click="excluirAluno(aluno)" >Excluir</button>
                                         <button class="btn btn-primary btn-sm" v-show="aluno.edit" v-on:click="salvarAluno(aluno)">Salvar</button>
                                         <button class="btn btn-danger btn-sm" v-show="aluno.edit" v-on:click="cancelarEdicaoAluno(aluno)">Cancelar</button>
                                     </td>
@@ -135,7 +138,7 @@
                                         <td class="spaceTituloDt">Av2</td>
                                         <td class="spaceTituloDt">Aps2</td>
                                         <td class="spaceTituloDt">Av3</td>
-                                        <td style="width:300px"></td>
+                                        <td style="width:300px">Ações</td>
                                     </tr>
                                 </thead>
                                 <tr v-for="nota in notas">
@@ -176,6 +179,7 @@
 
                                     <td style="width:300px">
                                         <button class="btn btn-primary btn-sm" v-show="!nota.edit" v-on:click="editarNota(nota)" >Editar</button>
+                                        <button class="btn btn-danger btn-sm" v-show="!nota.edit" v-on:click="exlcuirNota(nota)" >Excluir</button>
                                         <button class="btn btn-primary btn-sm" v-show="nota.edit" v-on:click="salvarEdicao(nota)">Salvar</button>
                                         <button class="btn btn-danger btn-sm" v-show="nota.edit" v-on:click="cancelarEdicao(nota)">Cancelar</button>
                                     </td>

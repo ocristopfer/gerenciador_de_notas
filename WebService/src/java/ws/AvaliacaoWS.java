@@ -21,6 +21,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import model.Aluno;
 import model.Avaliacao;
 import model.Nota;
 import model.Token;
@@ -44,25 +45,26 @@ public class AvaliacaoWS {
 
     /**
      * Retrieves representation of an instance of ws.AvaliacaoWS
+     *
      * @return an instance of java.lang.String
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getJson(@HeaderParam("Authorization") String token, @QueryParam("idAluno") int idAluno) throws ClassNotFoundException, SQLException {
-        if (token.isEmpty()){
-             throw new WebApplicationException(400);
+        if (token.isEmpty()) {
+            throw new WebApplicationException(400);
         }
-        
+
         Token otoken = new Token();
         otoken.setToken(token);
-        if (otoken.validarToken(otoken).equals("professor") && idAluno != 0){
-            
+        if (otoken.validarToken(otoken).equals("professor") && idAluno != 0) {
+
             AvaliacaoDao avaliacaoDao = new AvaliacaoDao();
             List<Avaliacao> avaliacaes = avaliacaoDao.getAvalicaoAluno(idAluno);
             Gson g = new Gson();
             return g.toJson(avaliacaes);
-        }else{
-             throw new WebApplicationException(400);
+        } else {
+            throw new WebApplicationException(400);
         }
         //TODO return proper representation object
         //throw new UnsupportedOperationException();
@@ -70,29 +72,50 @@ public class AvaliacaoWS {
 
     /**
      * PUT method for updating or creating an instance of AvaliacaoWS
+     *
      * @param content representation for the resource
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson(@HeaderParam("Authorization") String token, String content) throws ClassNotFoundException, SQLException {
-                if (token.isEmpty()){
-             throw new WebApplicationException(400);
+        if (token.isEmpty()) {
+            throw new WebApplicationException(400);
         }
-        
+
         Token otoken = new Token();
         otoken.setToken(token);
-        if (otoken.validarToken(otoken).equals("professor")){
+        if (otoken.validarToken(otoken).equals("professor")) {
             Gson g = new Gson();
-            Avaliacao request = g.fromJson(content, Avaliacao.class);
+            Avaliacao avaliacao = g.fromJson(content, Avaliacao.class);
             AvaliacaoDao avaliacaoDao = new AvaliacaoDao();
-            if(request.getIdAvaliacao() == null){
-                return g.toJson(avaliacaoDao.salvar(request));
-            }else{
-                return g.toJson(avaliacaoDao.atualizar(request));
+            if (avaliacao.getIdAvaliacao() == null) {
+                return g.toJson(avaliacaoDao.salvar(avaliacao));
+            } else {
+                return g.toJson(avaliacaoDao.atualizar(avaliacao));
             }
-        }else{
-             throw new WebApplicationException(400);
+        } else {
+            throw new WebApplicationException(400);
         }
     }
-    
+
+    @PUT
+    @Path("delete")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String deteleAluno(@HeaderParam("Authorization") String token, String content) throws ClassNotFoundException, SQLException {
+        if (token.isEmpty()) {
+            throw new WebApplicationException(400);
+        }
+        Token otoken = new Token();
+        otoken.setToken(token);
+        if (otoken.validarToken(otoken).equals("professor")) {
+            Gson g = new Gson();
+            Avaliacao avaliacao = g.fromJson(content, Avaliacao.class);
+            AvaliacaoDao avaliacaoDao = new AvaliacaoDao();
+            return g.toJson(avaliacaoDao.delete(avaliacao.getIdAvaliacao()));
+        } else {
+            throw new WebApplicationException(400);
+        }
+
+    }
+
 }

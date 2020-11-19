@@ -12,33 +12,32 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Disciplina;
+import model.Curso;
 
 /**
  *
  * @author ocris
  */
-public class DisciplinaDao {
-
-    private PreparedStatement pst;
+public class CursoDao {
+     private PreparedStatement pst;
     private ResultSet rs;
     private Connection con;
     private String sql;
 
-    public List<Disciplina> getDisciplinas() throws ClassNotFoundException, SQLException {
-        List<Disciplina> disciplinas = new ArrayList<>();
-        Disciplina disciplina = null;
-        sql = "SELECT * FROM disciplina;";
+    public List<Curso> getCursos() throws ClassNotFoundException, SQLException {
+        List<Curso> cursos = new ArrayList<>();
+        Curso curso = null;
+        sql = "SELECT * FROM curso;";
         con = DbCon.openCon();
         pst = con.prepareStatement(sql);
         rs = pst.executeQuery();
         while (rs.next()) {
-            disciplina = new Disciplina();
-            disciplina.setIdDisciplina(rs.getInt("idDISCIPLINA"));
-            disciplina.setNomeDisciplina(rs.getString("DISCIPLINA_NOME"));
-            disciplinas.add(disciplina);
+            curso = new Curso();
+            curso.setIdCurso(rs.getInt("idCURSO"));
+            curso.setNomeCurso(rs.getString("NOME_CURSO"));
+            cursos.add(curso);
         }
         DbCon.closeCon();
-        return disciplinas;
+        return cursos;
     }
 }

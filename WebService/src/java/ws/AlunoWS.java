@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
@@ -51,21 +52,20 @@ public class AlunoWS {
     public String getJson(@HeaderParam("Authorization") String token) throws SQLException, ClassNotFoundException {
         //TODO return proper representation object
         //throw new UnsupportedOperationException();
-        
-        if (token.isEmpty()){
-             throw new WebApplicationException(400);
+
+        if (token.isEmpty()) {
+            throw new WebApplicationException(400);
         }
         Token otoken = new Token();
         otoken.setToken(token);
-        if (otoken.validarToken(otoken).equals("professor")){
-            String matricula = Token.descriptografarToken(token).split(";")[2];
+        if (otoken.validarToken(otoken).equals("professor")) {
             AlunoDao oAluno = new AlunoDao();
             List<Aluno> alunos = oAluno.getAlunos();
-            
+
             Gson g = new Gson();
             return g.toJson(alunos);
-        }else{
-             throw new WebApplicationException(400);
+        } else {
+            throw new WebApplicationException(400);
         }
     }
 
@@ -76,28 +76,68 @@ public class AlunoWS {
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
+    public String putJson(@HeaderParam("Authorization") String token, String content) throws ClassNotFoundException, SQLException {
+        if (token.isEmpty()) {
+            throw new WebApplicationException(400);
+        }
+
+        Token otoken = new Token();
+        otoken.setToken(token);
+        if (otoken.validarToken(otoken).equals("professor")) {
+            Gson g = new Gson();
+            Aluno aluno = g.fromJson(content, Aluno.class);
+            AlunoDao alunoDao = new AlunoDao();
+            if (aluno.getMatricula() == null) {
+                return g.toJson(alunoDao.salvar(aluno));
+            } else {
+                return g.toJson(alunoDao.atualizar(aluno));
+            }
+        } else {
+            throw new WebApplicationException(400);
+        }
     }
 
+
+    @PUT
+    @Path("delete")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String deteleAluno(@HeaderParam("Authorization") String token, String content) throws ClassNotFoundException, SQLException {
+        if (token.isEmpty()) {
+            throw new WebApplicationException(400);
+        }
+        Token otoken = new Token();
+        otoken.setToken(token);
+        if (otoken.validarToken(otoken).equals("professor")) {
+            Gson g = new Gson();
+            Aluno aluno = g.fromJson(content, Aluno.class);          
+            AlunoDao oAluno = new AlunoDao();
+            return g.toJson(oAluno.delete(aluno.getMatricula()));
+        } else {
+            throw new WebApplicationException(400);
+        }
+
+    }
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("notas")
     public String getNotasAluno(@HeaderParam("Authorization") String token) throws ClassNotFoundException, SQLException {
-        if (token.isEmpty()){
-             throw new WebApplicationException(400);
+        if (token.isEmpty()) {
+            throw new WebApplicationException(400);
         }
         Token otoken = new Token();
         otoken.setToken(token);
-        if (otoken.validarToken(otoken).equals("aluno")){
+        if (otoken.validarToken(otoken).equals("aluno")) {
             String matricula = Token.descriptografarToken(token).split(";")[2];
             AlunoDao oAluno = new AlunoDao();
             List<Nota> notas = oAluno.getNotasAluno(matricula);
-            
+
             Gson g = new Gson();
             return g.toJson(notas);
-        }else{
-             throw new WebApplicationException(400);
+        } else {
+            throw new WebApplicationException(400);
         }
 
     }
+
 }

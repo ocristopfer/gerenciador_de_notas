@@ -10,16 +10,17 @@ package model;
  * @author ocris
  */
 public class Aluno {
-    private int matricula;
+    private Integer matricula;
     private String nome;
     private int idCurso;
     private int idUsuario;
+    private String nomeCurso;
 
-    public int getMatricula() {
+    public Integer getMatricula() {
         return matricula;
     }
 
-    public void setMatricula(int matricula) {
+    public void setMatricula(Integer matricula) {
         this.matricula = matricula;
     }
 
@@ -46,6 +47,23 @@ public class Aluno {
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNomeCurso() {
+        return nomeCurso;
+    }
+
+    public void setNomeCurso(String nomeCurso) {
+        this.nomeCurso = nomeCurso;
+    }
+    
     
     
     

@@ -4,28 +4,21 @@
  * and open the template in the editor.
  */
 
-// A $( document ).ready() block.
 $(document).ready(function () {
-    console.log("ready!");
-    /*
-     * Falta ajustar a validação do token
-     */
-    //validarToken("../login/");
-
-
+    validarToken("../login/");
 });
 
 var officeVM = new Vue({
     el: '#app',
     data: {
-        matriculaBusca: "2020100",
+        matriculaBusca: "",
         nomeAluno: "",
-        disciplinaSelecionada: "",
-        listaDisciplinas: {},
         listAlunos: {},
+        listaDisciplinas: {},
+        disciplinaSelecionada: "",
+        listaCursos: {},
         cursoSelecionado: null,
         notas: null,
-        listaCursos: {},
         verNotas: false
     },
     mounted() {
@@ -37,25 +30,25 @@ var officeVM = new Vue({
 
         }
         )
+        apiRequest('http://localhost:8080/WebService/webresources/curso', null, 'GET', {"Authorization": getCokie("token")}).then(
+                sucesso => {
+                    this.listaCursos = sucesso;
+                }, erro => {
+
+        }
+        )
         this.listarAlunos();
 
 
     },
     computed: {
 
-        /*people2: function () {
-         var _people = [];
-         for (var i = 0, notas; people = this.people[i]; i++) {
-         people.edit = false;
-         _people.push(people);
-         }
-         return _people;
-         }*/
     },
     methods: {
         novoAluno: function () {
             this._aluno = Object.assign({
-                nomeAluno: this.nomeAluno,
+                nome: this.nomeAluno,
+                idCurso: null,
                 edit: true,
                 novoAluno: true
 
@@ -81,7 +74,46 @@ var officeVM = new Vue({
             if (aluno.novoAluno) {
                 this.listAlunos.pop(aluno);
             }
+            this._originalAluno = null;
             aluno.edit = false;
+        },
+        excluirAluno: function (aluno) {
+            this._aluno = aluno;
+            bootbox.confirm({
+                message: "Só é possivel excluir o aluno, se todas as notas dele já foram previamente excluidas, tem certeza que deseja proseguir com a exclusão ?",
+                size: 'medium',
+                locale: 'pt-br',
+                centerVertical: true,
+                buttons: {
+                    confirm: {
+                        label: 'Sim',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'Não',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: this.callBackexcluirAluno
+            });
+
+
+        },
+        callBackexcluirAluno(result) {
+            if (result) {
+                apiRequest('http://localhost:8080/WebService/webresources/aluno/delete', this._aluno, 'PUT', {"Authorization": getCokie("token")}).then(
+                        sucesso => {
+                            console.log('excluir')
+                            this._aluno = null;
+                            this.listarAlunos();
+                        }, erro => {
+                }
+                )
+            }
+        }
+        ,
+        atualizarCurso: function (aluno) {
+            aluno.idCurso = this.cursoSelecionado.id;
         },
         salvarAluno: function (aluno) {
             aluno.novoAluno = false;
@@ -118,6 +150,7 @@ var officeVM = new Vue({
             if (nota.novaNota) {
                 this.notas.pop(nota);
             }
+            this._originalNota = null;
             nota.edit = false;
         },
         salvarEdicao: function (nota) {
@@ -205,14 +238,44 @@ var officeVM = new Vue({
                 this.notas.push(this._nota);
             }
 
-        },
+        }, exlcuirNota: function (nota) {
+            this._nota = nota;
+            bootbox.confirm({
+                message: "Tem certeza que deseja excluir essa avaliação ?",
+                size: 'medium',
+                locale: 'pt-br',
+                centerVertical: true,
+                buttons: {
+                    confirm: {
+                        label: 'Sim',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'Não',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: this.callBackExcluirNota,
+            });
+
+        }, callBackExcluirNota: function (result) {
+            if (result) {
+                callback = this;
+                apiRequest('http://localhost:8080/WebService/webresources/avaliacao/delete', this._nota, 'PUT', {"Authorization": getCokie("token")}).then(
+                        sucesso => {
+                            this._nota = null;
+                            this.buscarAluno();
+                        }, erro => {
+                }
+                )
+            }
+        }
+        ,
         atualizarDisciplina: function (nota) {
             nota.idDisciplina = this.disciplinaSelecionada.id;
             nota.materia = this.disciplinaSelecionada.text;
-            console.log(this.disciplinaSelecionada.id, this.disciplinaSelecionada.text)
         },
         valorMaximo(objeto, valor, limite) {
-
             if (objeto[valor] > limite) {
                 objeto[valor] = 0;
             }

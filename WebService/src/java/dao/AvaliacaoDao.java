@@ -32,14 +32,14 @@ public class AvaliacaoDao {
     public List<Avaliacao> getAvalicaoAluno(int idAluno) throws ClassNotFoundException, SQLException {
         List<Avaliacao> ListAvalicao = new ArrayList<>();
         Avaliacao avalicao = null;
-        sql = "SELECT aluno.MATRICULA\n" +
-                "	,aluno.ALUNO_NOME\n" +
-                "	,disciplina.DISCIPLINA_NOME\n" +
-                "	,avaliacao.*\n" +
-                "FROM aluno\n" +
-                "LEFT JOIN avaliacao ON aluno.MATRICULA = avaliacao.idMATRICULA\n" +
-                "LEFT JOIN disciplina ON disciplina.idDISCIPLINA = avaliacao.idDISCIPLINA\n" +
-                "WHERE aluno.MATRICULA = '"+ idAluno + "'";
+        sql = "SELECT aluno.MATRICULA\n"
+                + "	,aluno.ALUNO_NOME\n"
+                + "	,disciplina.DISCIPLINA_NOME\n"
+                + "	,avaliacao.*\n"
+                + "FROM aluno\n"
+                + "LEFT JOIN avaliacao ON aluno.MATRICULA = avaliacao.idMATRICULA\n"
+                + "LEFT JOIN disciplina ON disciplina.idDISCIPLINA = avaliacao.idDISCIPLINA\n"
+                + "WHERE aluno.MATRICULA = '" + idAluno + "'";
         con = DbCon.openCon();
         pst = con.prepareStatement(sql);
         rs = pst.executeQuery();
@@ -60,9 +60,9 @@ public class AvaliacaoDao {
         DbCon.closeCon();
         return ListAvalicao;
     }
-    
-    public int atualizar(Avaliacao avalicao) throws SQLException, ClassNotFoundException{
-        
+
+    public int atualizar(Avaliacao avalicao) throws SQLException, ClassNotFoundException {
+
         //TODO: rotina de atualizar a avaliação;  
         sql = "UPDATE avaliacao SET \n"
                 + "TRABALHO_ACADEMICO_AV1 = ?,\n"
@@ -79,14 +79,14 @@ public class AvaliacaoDao {
         pst.setFloat(4, avalicao.getAps1());
         pst.setFloat(5, avalicao.getAps2());
         pst.setInt(6, avalicao.getIdAvaliacao());
-        
+
         int result = pst.executeUpdate();
         DbCon.closeCon();
-        
+
         return result;
     }
-    
-    public int salvar(Avaliacao avalicao) throws ClassNotFoundException, SQLException{
+
+    public int salvar(Avaliacao avalicao) throws ClassNotFoundException, SQLException {
         try {
             //TODO: rotina para inserir uma nova avaliação;
             sql = "INSERT INTO avaliacao ("
@@ -99,20 +99,38 @@ public class AvaliacaoDao {
                     + "`idDISCIPLINA`)"
                     + " VALUES (?,?,?,?,?,?,?);"
                     + "";
-            
+
             con = DbCon.openCon();
             pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setDouble(1, avalicao.getAv1());
             pst.setDouble(2, avalicao.getAps1());
             pst.setDouble(3, avalicao.getAv2());
             pst.setDouble(4, avalicao.getAps2());
-            pst.setDouble(5, avalicao.getAv3());           
+            pst.setDouble(5, avalicao.getAv3());
             pst.setInt(6, avalicao.getMatricula());
             pst.setInt(7, avalicao.getIdDisciplina());
-                        
+
             int result = pst.executeUpdate();
-              DbCon.closeCon();
-            
+            DbCon.closeCon();
+
+            return result;
+        } catch (SQLException ex) {
+            Logger.getLogger(AvaliacaoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+    }
+
+    public int delete(int idAvaliacao) throws ClassNotFoundException, SQLException {
+        try {
+            //TODO: rotina para inserir uma nova avaliação;
+            sql = "DELETE FROM avaliacao WHERE idAVALIACAO = ?";
+
+            con = DbCon.openCon();
+            pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pst.setInt(1, 1);
+            int result = pst.executeUpdate();
+            DbCon.closeCon();
+
             return result;
         } catch (SQLException ex) {
             Logger.getLogger(AvaliacaoDao.class.getName()).log(Level.SEVERE, null, ex);
