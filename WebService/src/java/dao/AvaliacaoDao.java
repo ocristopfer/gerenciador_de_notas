@@ -127,7 +127,7 @@ public class AvaliacaoDao {
 
             con = DbCon.openCon();
             pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            pst.setInt(1, 1);
+            pst.setInt(1, idAvaliacao);
             int result = pst.executeUpdate();
             DbCon.closeCon();
 
