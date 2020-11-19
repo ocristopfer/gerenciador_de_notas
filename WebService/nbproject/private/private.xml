@@ -3,15 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/banco.sql</file>
-            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/src/java/dao/UsuarioDao.java</file>
-            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/src/java/dao/AvaliacaoDao.java</file>
             <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/src/java/ws/AlunoWS.java</file>
-            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/src/java/dao/DisciplinaDao.java</file>
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/src/java/dao/AvaliacaoDao.java</file>
             <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/src/java/ws/AvaliacaoWS.java</file>
-            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/src/java/model/Disciplina.java</file>
             <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/src/java/dao/AlunoDao.java</file>
-            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/src/java/model/Nota.java</file>
+        </group>
+        <group name="WebService">
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/src/java/ws/AlunoWS.java</file>
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/src/java/dao/AvaliacaoDao.java</file>
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/src/java/ws/AvaliacaoWS.java</file>
+            <file>file:/D:/Desenv/projetos_faculdade/gerenciador_de_notas/WebService/src/java/dao/AlunoDao.java</file>
         </group>
     </open-files>
 </project-private>
