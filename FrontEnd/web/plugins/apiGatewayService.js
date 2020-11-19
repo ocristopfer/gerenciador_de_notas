@@ -41,7 +41,7 @@ function validarToken(urlRedirect = "") {
         , erro => {
             console.log('apagar')
             eraseCookie('token');
-            window.location.href = "/login";
+            window.location.href = "http://localhost:8080/FrontEnd/login/";
         })
     });
 

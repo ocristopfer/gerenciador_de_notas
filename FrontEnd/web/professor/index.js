@@ -285,6 +285,7 @@ var officeVM = new Vue({
 
 $('#logout').click(function () {
     console.log('logout')
+    setCookie('token', '');
     eraseCookie('token');
-    window.location.href = "../login";
+    window.location.href = "http://localhost:8080/FrontEnd/login/";
 });

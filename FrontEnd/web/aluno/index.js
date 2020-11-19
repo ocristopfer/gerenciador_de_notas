@@ -38,7 +38,8 @@ $(document).ready(function () {
 
 $('#logout').click(function () {
     console.log('logout')
-         eraseCookie('token');
-            window.location.href = "../login";
+    setCookie('token', '');
+    eraseCookie('token');
+    window.location.href = "http://localhost:8080/FrontEnd/login/";
 });
 
